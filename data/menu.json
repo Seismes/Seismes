@@ -1,0 +1,19 @@
+{
+  "menuItems": {
+    "item1": {
+      "name": { "en": "Item 1", "es": "Artículo 1", "fr": "Article 1" },
+      "desc": { "en": "Description for item 1", "es": "Descripción para artículo 1", "fr": "Description pour article 1" },
+      "price": "$9.99"
+    },
+    "item2": {
+      "name": { "en": "Item 2", "es": "Artículo 2", "fr": "Article 2" },
+      "desc": { "en": "Description for item 2", "es": "Descripción para artículo 2", "fr": "Description pour article 2" },
+      "price": "$12.99"
+    },
+    "item3": {
+      "name": { "en": "Item 3", "es": "Artículo 3", "fr": "Article 3" },
+      "desc": { "en": "Description for item 3", "es": "Descripción para artículo 3", "fr": "Description pour article 3" },
+      "price": "$7.99"
+    }
+  }
+}
