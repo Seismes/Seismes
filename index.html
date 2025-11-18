@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Name</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Roboto', sans-serif; background: #f9f9f9; color: #333; }
+    header { background: #ff6f61; color: #fff; padding: 2rem 1rem; text-align: center; }
+    header h1 { font-size: 2.5rem; }
+    header p { font-size: 1.2rem; margin: 0.5rem 0; }
+    header select { padding: 0.3rem 0.5rem; font-size: 1rem; border-radius: 5px; border: none; }
+    section { max-width: 1000px; margin: 2rem auto; padding: 1rem; }
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+    .menu-item { background: #fff; padding: 1rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .menu-item img { max-width: 100%; border-radius: 5px; }
+    .menu-item h3 { margin: 0.5rem 0; }
+    .menu-item span { color: #ff6f61; font-weight: bold; }
+    .contact { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); text-align: center; }
+    footer { background: #333; color: #fff; text-align: center; padding: 1.5rem; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1 id="business-name">Business Name</h1>
+  <p id="tagline">Your tagline or slogan goes here</p>
+
+  <select id="language-selector">
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="fr">Français</option>
+  </select>
+</header>
+
+<section id="menu">
+  <h2 id="menu-title" style="text-align:center; margin-bottom: 1.5rem; color:#ff6f61;">Our Menu</h2>
+
+  <div class="menu-grid">
+    <div class="menu-item" data-key="item1">
+      <img src="assets/images/item1.jpg" alt="Item 1">
+      <h3 class="menu-name">Item 1</h3>
+      <p class="menu-desc">Description goes here.</p>
+      <span class="menu-price">$9.99</span>
+    </div>
+
+    <div class="menu-item" data-key="item2">
+      <img src="assets/images/item2.jpg" alt="Item 2">
+      <h3 class="menu-name">Item 2</h3>
+      <p class="menu-desc">Description goes here.</p>
+      <span class="menu-price">$12.99</span>
+    </div>
+
+    <div class="menu-item" data-key="item3">
+      <img src="assets/images/item3.jpg" alt="Item 3">
+      <h3 class="menu-name">Item 3</h3>
+      <p class="menu-desc">Description goes here.</p>
+      <span class="menu-price">$7.99</span>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact">
+    <h2 id="contact-title">Contact Us</h2>
+    <p id="address">Address: 123 Street, City, Country</p>
+    <p id="phone">Phone: +123 456 7890</p>
+    <p id="email">Email: info@business.com</p>
+  </div>
+</section>
+
+<footer>
+  &copy; 2025 Business Name. All Rights Reserved.
+</footer>
+
+<script>
+  let menuData = {};
+
+  fetch('data/menu.json')
+    .then(res => res.json())
+    .then(data => {
+      menuData = data.menuItems;
+      updateMenu('en');
+    });
+
+  const translations = {
+    en: {
+      businessName: "Business Name",
+      tagline: "Your tagline or slogan goes here",
+      menuTitle: "Our Menu",
+      contactTitle: "Contact Us",
+      address: "Address: 123 Street, City, Country",
+      phone: "Phone: +123 456 7890",
+      email: "Email: info@business.com"
+    },
+    es: {
+      businessName: "Nombre del Negocio",
+      tagline: "Tu lema o eslogan aquí",
+      menuTitle: "Nuestro Menú",
+      contactTitle: "Contáctanos",
+      address: "Dirección: Calle 123, Ciudad, País",
+      phone: "Teléfono: +123 456 7890",
+      email: "Correo: info@business.com"
+    },
+    fr: {
+      businessName: "Nom de l'entreprise",
+      tagline: "Votre slogan ici",
+      menuTitle: "Notre Menu",
+      contactTitle: "Contactez-nous",
+      address: "Adresse: 123 Rue, Ville, Pays",
+      phone: "Téléphone: +123 456 7890",
+      email: "Email: info@business.com"
+    }
+  };
+
+  const selector = document.getElementById('language-selector');
+
+  selector.addEventListener('change', () => {
+    updateMenu(selector.value);
+  });
+
+  function updateMenu(lang) {
+    const t = translations[lang];
+
+    document.getElementById('business-name').textContent = t.businessName;
+    document.getElementById('tagline').textContent = t.tagline;
+    document.getElementById('menu-title').textContent = t.menuTitle;
+    document.getElementById('contact-title').textContent = t.contactTitle;
+    document.getElementById('address').textContent = t.address;
+    document.getElementById('phone').textContent = t.phone;
+    document.getElementById('email').textContent = t.email;
+
+    document.querySelectorAll('.menu-item').forEach(item => {
+      const key = item.getAttribute('data-key');
+      const data = menuData[key];
+      item.querySelector('.menu-name').textContent = data.name[lang];
+      item.querySelector('.menu-desc').textContent = data.desc[lang];
+      item.querySelector('.menu-price').textContent = data.price;
+    });
+  }
+</script>
+
+  <!-- Floating Buttons -->
+<style>
+  .float-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+  }
+
+  .float-button a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    background-color: #25D366; /* WhatsApp green */
+    color: #fff;
+    border-radius: 50%;
+    font-size: 28px;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+  }
+
+  .float-button a.call-btn {
+    background-color: #34b7f1; /* Call button blue */
+  }
+
+  .float-button a:hover {
+    transform: scale(1.1);
+  }
+</style>
+
+<div class="float-button">
+  <!-- WhatsApp -->
+  <a id="whatsapp-btn" href="https://wa.me/1234567890" target="_blank" title="Chat on WhatsApp">
+    &#x2709;
+  </a>
+
+  <!-- Call -->
+  <a id="call-btn" href="tel:+1234567890" class="call-btn" title="Call Now">
+    &#x260E;
+  </a>
+</div>
+
+<script>
+  // Update buttons dynamically with language selector (optional)
+  const businessPhone = "+1234567890"; // Replace with your business number
+  document.getElementById('whatsapp-btn').href = "https://wa.me/" + businessPhone.replace(/\D/g,'');
+  document.getElementById('call-btn').href = "tel:" + businessPhone;
+</script>
+
+  
+</body>
+</html>
